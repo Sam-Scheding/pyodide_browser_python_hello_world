@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        window.languagePluginUrl = 'http://localhost:8000/pyodide_modules'; // set the pyodide support files (packages.json, pyodide.asm.data etc) url
+    </script>
+    <script src="pyodide.js" type="text/javascript"></script>
+
+</head>
+<body>
+  <script type="text/javascript">
+        languagePluginLoader.then(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    pyodide.runPython(this.responseText);
+                }
+            };
+            xhttp.open("GET", "./src/main.py", true);
+            xhttp.send();
+        })
+  </script>
+</body>
